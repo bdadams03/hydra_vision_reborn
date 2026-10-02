@@ -1,0 +1,44 @@
+# ─────────────────────────────────────────────
+# TurtleBot4 Object Detection Benchmark Config
+# ─────────────────────────────────────────────
+
+# ROS2 camera topic published by the TurtleBot4 OAK-D camera
+camera_topic: "/oakd/rgb/preview/image_raw"
+
+# Models to benchmark (remove any you don't want)
+models:
+  - yolov8
+  - fasterrcnn
+  - ssd
+
+# YOLOv8 weights file (downloaded automatically by ultralytics on first run)
+# Options: yolov8n.pt  yolov8s.pt  yolov8m.pt  yolov8l.pt  yolov8x.pt
+yolov8_weights: "yolov8n.pt"
+
+# Inference device: "cpu" or "cuda" (if NVIDIA GPU is available)
+device: "cpu"
+
+# Detection confidence threshold (applies to all models)
+conf_threshold: 0.40
+
+# IoU threshold for TP/FP matching against ground truth
+iou_threshold: 0.50
+
+# How many frames to process per benchmark run
+max_frames: 100
+
+# Camera image dimensions (must match the topic output)
+image_width:  640
+image_height: 480
+
+# Optional: path to a pre-built ground-truth JSON file.
+# Leave null to use synthetic GT (centred object).
+# Run gazebo_environment.py --collect_gt to generate one.
+ground_truth_path: null
+#ground_truth_path: "benchmark_results/ground_truth.json"
+
+# Where to write results (CSV, JSON, PNG charts)
+output_dir: "benchmark_results"
+
+# Save an annotated JPEG for every processed frame (slow, uses disk space)
+save_annotated_frames: false
